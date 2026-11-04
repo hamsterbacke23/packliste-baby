@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#f6efe4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1915" media="(prefers-color-scheme: dark)">
+<title>Packliste Baby</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6efe4;
+    --card: #fffaf2;
+    --ink: #2a241d;
+    --muted: #7a6d5d;
+    --line: #e7dccb;
+    --accent: #d9622b;
+    --accent-soft: #f6dccb;
+    --sea: #2f7f8a;
+    --done: #a89a87;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1915;
+      --card: #26221c;
+      --ink: #f1e9dc;
+      --muted: #a8998a;
+      --line: #3a342b;
+      --accent: #f08a52;
+      --accent-soft: #4a3123;
+      --sea: #6cc0c9;
+      --done: #6e6457;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.45 Inter, system-ui, -apple-system, sans-serif;
+    padding: 0 16px calc(96px + env(safe-area-inset-bottom));
+  }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  header { padding: 36px 0 20px; }
+  .eyebrow {
+    font-size: 13px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--sea); font-weight: 600; margin: 0 0 6px;
+  }
+  h1 {
+    font-family: Fraunces, Georgia, serif; font-weight: 650;
+    font-size: clamp(32px, 9vw, 44px); line-height: 1.05; margin: 0 0 10px;
+    letter-spacing: -.01em;
+  }
+  .lead { color: var(--muted); margin: 0; max-width: 46ch; }
+
+  nav.chips {
+    display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 16px;
+    scrollbar-width: none; margin: 0 -16px; padding-left: 16px; padding-right: 16px;
+  }
+  nav.chips::-webkit-scrollbar { display: none; }
+  nav.chips a {
+    flex: none; text-decoration: none; color: var(--ink);
+    background: var(--card); border: 1px solid var(--line);
+    padding: 6px 12px; border-radius: 999px; font-size: 14px; white-space: nowrap;
+  }
+  nav.chips a .n { color: var(--muted); margin-left: 4px; font-variant-numeric: tabular-nums; }
+  nav.chips a.complete { background: var(--accent-soft); border-color: transparent; }
+
+  section {
+    background: var(--card); border: 1px solid var(--line); border-radius: 18px;
+    padding: 18px 18px 8px; margin: 0 0 14px; scroll-margin-top: 16px;
+  }
+  section h2 {
+    font-family: Fraunces, Georgia, serif; font-weight: 500; font-size: 22px;
+    margin: 0 0 4px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+  }
+  section h2 .count { font: 500 13px Inter, sans-serif; color: var(--muted); font-variant-numeric: tabular-nums; }
+  section > p { color: var(--muted); font-size: 14px; margin: 0 0 8px; }
+  section.highlight { border-color: var(--accent); }
+
+  ul { list-style: none; margin: 0; padding: 0; }
+  li + li { border-top: 1px solid var(--line); }
+  label {
+    display: flex; gap: 12px; align-items: flex-start; padding: 11px 0; cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  input[type=checkbox] {
+    appearance: none; -webkit-appearance: none; flex: none;
+    width: 22px; height: 22px; margin: 0; border-radius: 7px;
+    border: 2px solid var(--line); background: var(--bg);
+    display: grid; place-content: center; transition: background .15s, border-color .15s;
+  }
+  input[type=checkbox]::after {
+    content: ""; width: 10px; height: 6px; border: solid #fff; border-width: 0 0 2.5px 2.5px;
+    transform: rotate(-45deg) translate(1px, -1px); opacity: 0;
+  }
+  input[type=checkbox]:checked { background: var(--accent); border-color: var(--accent); }
+  input[type=checkbox]:checked::after { opacity: 1; }
+  input[type=checkbox]:focus-visible { outline: 2px solid var(--sea); outline-offset: 2px; }
+  .txt small { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
+  input:checked + .txt { color: var(--done); text-decoration: line-through; text-decoration-thickness: 1px; }
+  input:checked + .txt small { text-decoration: none; }
+
+  .bar {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid var(--line);
+  }
+  .bar .inner { max-width: 640px; margin: 0 auto; display: flex; align-items: center; gap: 14px; }
+  .progress { flex: 1; }
+  .progress .label { font-size: 13px; color: var(--muted); margin-bottom: 6px; font-variant-numeric: tabular-nums; }
+  .track { height: 6px; border-radius: 99px; background: var(--line); overflow: hidden; }
+  .fill { height: 100%; width: 0; background: var(--accent); border-radius: 99px; transition: width .25s; }
+  button {
+    font: 500 14px Inter, sans-serif; color: var(--ink); background: transparent;
+    border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; cursor: pointer;
+  }
+  footer { color: var(--muted); font-size: 13px; padding: 8px 2px 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Kanaren · Baby, 4–5 Monate</p>
+    <h1>Packliste Baby</h1>
+    <p class="lead">Mit Kinderwagen, ohne Buggy. Abgehakte Punkte bleiben auf diesem Gerät gespeichert.</p>
+  </header>
+
+  <nav class="chips" id="chips"></nav>
+
+  <main id="list">
+    <section id="dokumente" data-title="Dokumente">
+      <h2>Dokumente <span class="count"></span></h2>
+      <p>Ohne eigenes Ausweisdokument kommt das Baby nicht in den Flieger.</p>
+      <ul>
+        <li><label><input type="checkbox"><span class="txt">Personalausweis oder Reisepass fürs Baby<small>Kinderreisepass wird seit 2024 nicht mehr ausgestellt</small></span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Krankenversichertenkarte (EHIC auf der Rückseite)</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Auslandskrankenversicherung: Baby mitversichert?</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Impfpass und U-Heft</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Telefonnummer Kinderarzt im Handy</span></label></li>
+      </ul>
+    </section>
+
+    <section id="apotheke" data-title="Reiseapotheke" class="highlight">
+      <h2>Reiseapotheke <span class="count"></span></h2>
+      <p>Mit dem Kinderarzt vorher durchgehen, vor allem Dosierungen nach aktuellem Gewicht. Alles in Originalverpackung mit Beipackzettel.</p>
+      <ul>
+        <li><label><input type="checkbox"><span class="txt">Fieberthermometer</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Fieber- und Schmerzmittel für Säuglinge<small>z. B. Paracetamol-Zäpfchen – Stärke und Dosis vom Kinderarzt</small></span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Kochsalz-Nasentropfen oder -spray</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Nasensauger</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Elektrolytlösung für Säuglinge<small>bei Durchfall oder Erbrechen – Anwendung vorab klären</small></span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Mittel gegen Blähungen<small>nur falls ihr das schon nutzt</small></span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Wundschutzcreme (Extra-Tube)</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Wund- und Heilsalbe</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Hautfreundliches Desinfektionsspray</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Pflaster, sterile Kompressen</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Pinzette</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Kühlpad</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Notfallnummer Spanien: 112<small>Für Kinderarzt vor Ort: Hotelrezeption fragen</small></span></label></li>
+      </ul>
+    </section>
+
+    <section id="kleidung" data-title="Kleidung">
+      <h2>Kleidung <span class="count"></span></h2>
+      <p>Tagsüber um 24 °C, abends 17–18 °C. Für Zürich und den Flug trotzdem Winterzeug.</p>
+      <ul>
+        <li><label><input type="checkbox"><span class="txt">8–10 Bodys, kurz- und langärmlig gemischt</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">6–8 Strampler oder leichte Hosen</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">2–3 dünne Langarm-Oberteile oder Jäckchen für abends</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">1 Fleece- oder Strickjacke</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">4–5 Paar Socken</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">2 Schlafanzüge oder Schlafstrampler</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">2 Sonnenhüte mit Nackenschutz</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">UV-Schwimmanzug oder UV-Body</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Schwimmwindeln (ca. 10)</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">5–6 Lätzchen und Spucktücher</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Winteroverall, Mütze, Handschuhe für Hin- und Rückweg</span></label></li>
+      </ul>
+    </section>
+
+    <section id="schlafen" data-title="Schlafen">
+      <h2>Schlafen <span class="count"></span></h2>
+      <ul>
+        <li><label><input type="checkbox"><span class="txt">Babybett beim Hotel reservieren<small>über den Reiseveranstalter oder direkt beim Hotel</small></span></label></li>
+        <li><label><input type="checkbox"><span class="txt">2 Sommerschlafsäcke (TOG 0,5–1)</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">2 Spannbettlaken fürs Reisebett</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Schnuller plus Ersatz, Schnullerkette</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Kuscheltuch oder vertrautes Einschlafteil</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Babyphone</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Kleines Nachtlicht</span></label></li>
+      </ul>
+    </section>
+
+    <section id="wickeln" data-title="Wickeln & Pflege">
+      <h2>Wickeln &amp; Pflege <span class="count"></span></h2>
+      <p>Windeln gibt es vor Ort im Supermarkt; ein Vorrat für die ersten Tage reicht.</p>
+      <ul>
+        <li><label><input type="checkbox"><span class="txt">Windeln für 2–3 Tage</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">2 Packungen Feuchttücher</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Faltbare Wickelunterlage</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Wickeltasche</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Windelbeutel</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Baby-Waschgel und Pflegelotion</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Nagelschere oder Feile</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Sonnenschutz<small>Unter 6 Monaten vor allem Schatten; Sonnencreme nur kleinflächig, im Zweifel Kinderarzt fragen</small></span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Kleines Handtuch, Waschlappen</span></label></li>
+      </ul>
+    </section>
+
+    <section id="essen" data-title="Essen & Trinken">
+      <h2>Essen &amp; Trinken <span class="count"></span></h2>
+      <ul>
+        <li><label><input type="checkbox"><span class="txt">Stillkissen oder Stilltuch</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Falls Fläschchen: Flaschen, Sauger, Milchpulver für die ganze Woche<small>eure Marke gibt es vor Ort nicht sicher</small></span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Thermoskanne für abgekochtes Wasser</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Portionierer für Milchpulver</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Flaschenbürste und Spülmittel</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Mikrowellen- oder Kalt-Sterilisierbeutel</span></label></li>
+      </ul>
+    </section>
+
+    <section id="unterwegs" data-title="Kinderwagen">
+      <h2>Kinderwagen &amp; unterwegs <span class="count"></span></h2>
+      <p>Der Kinderwagen geht meist bis zum Gate und wird dort aufgegeben. Vorher beim Reiseveranstalter anmelden.</p>
+      <ul>
+        <li><label><input type="checkbox"><span class="txt">Kinderwagen beim Reiseveranstalter anmelden</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Kinderwagen mit Babywanne oder flacher Liegefunktion</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Sonnensegel oder Schirm für den Wagen</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Insektennetz<small>Mückenspray ist für Babys in dem Alter keine Option</small></span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Regenschutz (für Zürich)</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Transporttasche für den Kinderwagen</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Babytrage oder Tragetuch für Flughafen und Strand</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Babyschale fürs Auto<small>nur bei Mietauto – sonst Transfer klären</small></span></label></li>
+      </ul>
+    </section>
+
+    <section id="handgepaeck" data-title="Handgepäck">
+      <h2>Handgepäck Flug <span class="count"></span></h2>
+      <p>Babynahrung und Milch fallen nicht unter die 100-ml-Regel – an der Kontrolle separat zeigen. Bei Start und Landung stillen, Fläschchen oder Schnuller geben.</p>
+      <ul>
+        <li><label><input type="checkbox"><span class="txt">Windeln für doppelt so lange wie die Flugzeit</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Feuchttücher, Wickelunterlage, Windelbeutel</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">2 Wechselbodys, 1 Wechsel-Strampler</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Ersatz-T-Shirt für die Person mit Baby auf dem Schoß</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Milch oder Fläschchen-Set für die Reise</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Spucktücher</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">2 Schnuller</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Leichte Decke oder Mulltuch</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Fieberthermometer und Fiebermittel aus der Reiseapotheke</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">1–2 kleine Spielzeuge</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Ausweis und Versichertenkarte griffbereit</span></label></li>
+      </ul>
+    </section>
+
+    <section id="sonstiges" data-title="Sonstiges">
+      <h2>Spielzeug &amp; Sonstiges <span class="count"></span></h2>
+      <ul>
+        <li><label><input type="checkbox"><span class="txt">Greifling, Rassel, Beißring</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Knisterbuch oder kleines Stoffbuch</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Spielbogen oder Spieldecke fürs Zimmer</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Strandmuschel oder UV-Zelt</span></label></li>
+        <li><label><input type="checkbox"><span class="txt">Waschmittel für Handwäsche zwischendurch</span></label></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>Stand: 4. November 2026</footer>
+</div>
+
+<div class="bar">
+  <div class="inner">
+    <div class="progress">
+      <div class="label" id="plabel"></div>
+      <div class="track"><div class="fill" id="pfill"></div></div>
+    </div>
+    <button type="button" id="reset">Zurücksetzen</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var KEY = 'packliste-baby-2026';
+  var sections = Array.prototype.slice.call(document.querySelectorAll('section'));
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[type=checkbox]'));
+  boxes.forEach(function (b, i) { b.dataset.i = i; });
+
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { state = {}; }
+  boxes.forEach(function (b) { b.checked = !!state[b.dataset.i]; });
+
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  var chips = document.getElementById('chips');
+  sections.forEach(function (s) {
+    var a = document.createElement('a');
+    a.href = '#' + s.id;
+    a.innerHTML = s.dataset.title + '<span class="n"></span>';
+    chips.appendChild(a);
+    s._chip = a;
+  });
+
+  function render() {
+    var total = boxes.length, done = 0;
+    sections.forEach(function (s) {
+      var bs = s.querySelectorAll('input[type=checkbox]');
+      var d = 0;
+      for (var i = 0; i < bs.length; i++) if (bs[i].checked) d++;
+      done += d;
+      var txt = d + '/' + bs.length;
+      s.querySelector('.count').textContent = txt;
+      s._chip.querySelector('.n').textContent = txt;
+      s._chip.classList.toggle('complete', d === bs.length);
+    });
+    document.getElementById('plabel').textContent = done + ' von ' + total + ' gepackt';
+    document.getElementById('pfill').style.width = (total ? done / total * 100 : 0) + '%';
+  }
+
+  document.getElementById('list').addEventListener('change', function (e) {
+    var b = e.target;
+    if (b.type !== 'checkbox') return;
+    if (b.checked) state[b.dataset.i] = 1; else delete state[b.dataset.i];
+    save(); render();
+  });
+
+  document.getElementById('reset').addEventListener('click', function () {
+    if (!confirm('Alle Haken entfernen?')) return;
+    state = {}; save();
+    boxes.forEach(function (b) { b.checked = false; });
+    render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
