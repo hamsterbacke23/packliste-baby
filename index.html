@@ -82,6 +82,15 @@
   section > p { color: var(--muted); font-size: 14px; margin: 0 0 8px; }
   section.highlight { border-color: var(--accent); }
 
+  .part {
+    font: 600 13px Inter, sans-serif; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--sea); margin: 26px 2px 10px;
+  }
+  .part:first-child { margin-top: 4px; }
+  .part span {
+    display: block; text-transform: none; letter-spacing: 0; font-weight: 400;
+    color: var(--muted); font-size: 14px; margin-top: 2px;
+  }
   ul { list-style: none; margin: 0; padding: 0; }
   li + li { border-top: 1px solid var(--line); }
   label {
@@ -135,24 +144,39 @@
   <nav class="chips" id="chips"></nav>
 
   <main id="list">
-    <section id="dokumente" data-title="Dokumente">
-      <h2>Dokumente <span class="count"></span></h2>
-      <p>Ohne eigenes Ausweisdokument kommt das Baby nicht in den Flieger.</p>
+    <p class="part">Teil 1</p>
+    <section id="must" data-title="Must-haves" class="highlight">
+      <h2>Absolute Must-haves <span class="count"></span></h2>
+      <p>Lässt sich vor Ort nicht ersetzen, oder ohne geht es nicht los. Ohne eigenes Ausweisdokument kommt das Baby nicht in den Flieger.</p>
       <ul>
         <li><label><input type="checkbox" data-k="0"><span class="txt">Personalausweis oder Reisepass fürs Baby<small>Kinderreisepass wird seit 2024 nicht mehr ausgestellt</small></span></label></li>
         <li><label><input type="checkbox" data-k="1"><span class="txt">Krankenversichertenkarte (EHIC auf der Rückseite)</span></label></li>
         <li><label><input type="checkbox" data-k="2"><span class="txt">Auslandskrankenversicherung: Baby mitversichert?</span></label></li>
         <li><label><input type="checkbox" data-k="3"><span class="txt">Impfpass und U-Heft</span></label></li>
-        <li><label><input type="checkbox" data-k="4"><span class="txt">Telefonnummer Kinderarzt im Handy</span></label></li>
+        <li><label><input type="checkbox" data-k="5"><span class="txt">Fieberthermometer</span></label></li>
+        <li><label><input type="checkbox" data-k="6"><span class="txt">Fieber- und Schmerzmittel für Säuglinge<small>z. B. Paracetamol-Zäpfchen – Stärke und Dosis vom Kinderarzt</small></span></label></li>
+        <li><label><input type="checkbox" data-k="52"><span class="txt">Kinderwagen mit Babywanne oder flacher Liegefunktion</span></label></li>
+        <li><label><input type="checkbox" data-k="58"><span class="txt">Eigene Babyschale, ohne Isofix-Basis<small>vorher am eigenen Auto testen, ob sie nur mit 3-Punkt-Gurt sicher sitzt</small></span></label></li>
+        <li><label><input type="checkbox" data-k="63"><span class="txt">Milch oder Fläschchen-Set für den Flug</span></label></li>
+        <li><label><input type="checkbox" data-k="59"><span class="txt">Windeln im Handgepäck für doppelt so lange wie die Flugzeit</span></label></li>
+        <li><label><input type="checkbox" data-k="61"><span class="txt">Wechselsachen im Handgepäck: 2 Bodys, 1 Strampler</span></label></li>
+        <li><label><input type="checkbox" data-k="28"><span class="txt">Winteroverall, Mütze, Handschuhe für Hin- und Rückweg</span></label></li>
+        <li><label><input type="checkbox" data-k="24"><span class="txt">2 Sonnenhüte mit Nackenschutz</span></label></li>
+        <li><label><input type="checkbox" data-k="53"><span class="txt">Sonnensegel oder Schirm für den Wagen</span></label></li>
+        <li><label><input type="checkbox" data-k="29"><span class="txt">Babybett beim Hotel reservieren<small>über den Reiseveranstalter oder direkt beim Hotel</small></span></label></li>
+        <li><label><input type="checkbox" data-k="30"><span class="txt">2 Sommerschlafsäcke (TOG 0,5–1)</span></label></li>
+        <li><label><input type="checkbox" data-k="32"><span class="txt">Schnuller plus Ersatz, Schnullerkette</span></label></li>
+        <li><label><input type="checkbox" data-k="33"><span class="txt">Kuscheltuch oder vertrautes Einschlafteil</span></label></li>
+        <li><label><input type="checkbox" data-k="46"><span class="txt">Falls Fläschchen: Flaschen, Sauger, Milchpulver für die ganze Woche<small>eure Marke gibt es vor Ort nicht sicher</small></span></label></li>
       </ul>
     </section>
 
-    <section id="apotheke" data-title="Reiseapotheke" class="highlight">
+    <p class="part">Teil 2 · Alles andere<span>Wichtig, aber zur Not vor Ort kaufbar oder verzichtbar</span></p>
+
+    <section id="apotheke" data-title="Reiseapotheke">
       <h2>Reiseapotheke <span class="count"></span></h2>
       <p>Mit dem Kinderarzt vorher durchgehen, vor allem Dosierungen nach aktuellem Gewicht. Alles in Originalverpackung mit Beipackzettel.</p>
       <ul>
-        <li><label><input type="checkbox" data-k="5"><span class="txt">Fieberthermometer</span></label></li>
-        <li><label><input type="checkbox" data-k="6"><span class="txt">Fieber- und Schmerzmittel für Säuglinge<small>z. B. Paracetamol-Zäpfchen – Stärke und Dosis vom Kinderarzt</small></span></label></li>
         <li><label><input type="checkbox" data-k="7"><span class="txt">Kochsalz-Nasentropfen oder -spray</span></label></li>
         <li><label><input type="checkbox" data-k="8"><span class="txt">Nasensauger</span></label></li>
         <li><label><input type="checkbox" data-k="9"><span class="txt">Elektrolytlösung für Säuglinge<small>bei Durchfall oder Erbrechen – Anwendung vorab klären</small></span></label></li>
@@ -163,6 +187,7 @@
         <li><label><input type="checkbox" data-k="14"><span class="txt">Pflaster, sterile Kompressen</span></label></li>
         <li><label><input type="checkbox" data-k="15"><span class="txt">Pinzette</span></label></li>
         <li><label><input type="checkbox" data-k="16"><span class="txt">Kühlpad</span></label></li>
+        <li><label><input type="checkbox" data-k="4"><span class="txt">Telefonnummer Kinderarzt im Handy</span></label></li>
         <li><label><input type="checkbox" data-k="17"><span class="txt">Notfallnummer Spanien: 112<small>Für Kinderarzt vor Ort: Hotelrezeption fragen</small></span></label></li>
       </ul>
     </section>
@@ -177,22 +202,16 @@
         <li><label><input type="checkbox" data-k="21"><span class="txt">1 Fleece- oder Strickjacke</span></label></li>
         <li><label><input type="checkbox" data-k="22"><span class="txt">4–5 Paar Socken</span></label></li>
         <li><label><input type="checkbox" data-k="23"><span class="txt">2 Schlafanzüge oder Schlafstrampler</span></label></li>
-        <li><label><input type="checkbox" data-k="24"><span class="txt">2 Sonnenhüte mit Nackenschutz</span></label></li>
         <li><label><input type="checkbox" data-k="25"><span class="txt">UV-Schwimmanzug oder UV-Body</span></label></li>
         <li><label><input type="checkbox" data-k="26"><span class="txt">Schwimmwindeln (ca. 10)</span></label></li>
         <li><label><input type="checkbox" data-k="27"><span class="txt">5–6 Lätzchen und Spucktücher</span></label></li>
-        <li><label><input type="checkbox" data-k="28"><span class="txt">Winteroverall, Mütze, Handschuhe für Hin- und Rückweg</span></label></li>
       </ul>
     </section>
 
     <section id="schlafen" data-title="Schlafen">
       <h2>Schlafen <span class="count"></span></h2>
       <ul>
-        <li><label><input type="checkbox" data-k="29"><span class="txt">Babybett beim Hotel reservieren<small>über den Reiseveranstalter oder direkt beim Hotel</small></span></label></li>
-        <li><label><input type="checkbox" data-k="30"><span class="txt">2 Sommerschlafsäcke (TOG 0,5–1)</span></label></li>
         <li><label><input type="checkbox" data-k="31"><span class="txt">2 Spannbettlaken fürs Reisebett</span></label></li>
-        <li><label><input type="checkbox" data-k="32"><span class="txt">Schnuller plus Ersatz, Schnullerkette</span></label></li>
-        <li><label><input type="checkbox" data-k="33"><span class="txt">Kuscheltuch oder vertrautes Einschlafteil</span></label></li>
         <li><label><input type="checkbox" data-k="34"><span class="txt">Babyphone</span></label></li>
         <li><label><input type="checkbox" data-k="35"><span class="txt">Kleines Nachtlicht</span></label></li>
       </ul>
@@ -218,7 +237,6 @@
       <h2>Essen &amp; Trinken <span class="count"></span></h2>
       <ul>
         <li><label><input type="checkbox" data-k="45"><span class="txt">Stillkissen oder Stilltuch</span></label></li>
-        <li><label><input type="checkbox" data-k="46"><span class="txt">Falls Fläschchen: Flaschen, Sauger, Milchpulver für die ganze Woche<small>eure Marke gibt es vor Ort nicht sicher</small></span></label></li>
         <li><label><input type="checkbox" data-k="47"><span class="txt">Thermoskanne für abgekochtes Wasser</span></label></li>
         <li><label><input type="checkbox" data-k="48"><span class="txt">Portionierer für Milchpulver</span></label></li>
         <li><label><input type="checkbox" data-k="49"><span class="txt">Flaschenbürste und Spülmittel</span></label></li>
@@ -231,13 +249,10 @@
       <p>Kinderwagen und Babyschale fliegen bei TUI kostenlos mit. Der Kinderwagen geht meist bis zum Gate. Mietwagen haben nicht sicher Isofix, also die Schale ohne Basis mit Gurt einbauen.</p>
       <ul>
         <li><label><input type="checkbox" data-k="51"><span class="txt">Kinderwagen und Babyschale beim Reiseveranstalter bestätigen</span></label></li>
-        <li><label><input type="checkbox" data-k="52"><span class="txt">Kinderwagen mit Babywanne oder flacher Liegefunktion</span></label></li>
-        <li><label><input type="checkbox" data-k="53"><span class="txt">Sonnensegel oder Schirm für den Wagen</span></label></li>
         <li><label><input type="checkbox" data-k="54"><span class="txt">Insektennetz<small>Mückenspray ist für Babys in dem Alter keine Option</small></span></label></li>
         <li><label><input type="checkbox" data-k="55"><span class="txt">Regenschutz (für Zürich)</span></label></li>
         <li><label><input type="checkbox" data-k="56"><span class="txt">Transporttasche für den Kinderwagen</span></label></li>
         <li><label><input type="checkbox" data-k="57"><span class="txt">Babytrage oder Tragetuch für Flughafen und Strand</span></label></li>
-        <li><label><input type="checkbox" data-k="58"><span class="txt">Eigene Babyschale, ohne Isofix-Basis<small>vorher am eigenen Auto testen, ob sie nur mit 3-Punkt-Gurt sicher sitzt</small></span></label></li>
         <li><label><input type="checkbox" data-k="a1"><span class="txt">Transporttasche oder großer Sack für die Babyschale<small>schützt beim Aufgeben vor Schmutz und Kratzern</small></span></label></li>
         <li><label><input type="checkbox" data-k="a2"><span class="txt">Kinderwagen-Adapter für die Babyschale<small>falls euer Wagen welche hat – dann reicht das Gestell für kurze Wege</small></span></label></li>
         <li><label><input type="checkbox" data-k="a3"><span class="txt">Sonnenschutz für die Autofenster hinten</span></label></li>
@@ -249,11 +264,8 @@
       <h2>Handgepäck Flug <span class="count"></span></h2>
       <p>Babynahrung und Milch fallen nicht unter die 100-ml-Regel – an der Kontrolle separat zeigen. Bei Start und Landung stillen, Fläschchen oder Schnuller geben.</p>
       <ul>
-        <li><label><input type="checkbox" data-k="59"><span class="txt">Windeln für doppelt so lange wie die Flugzeit</span></label></li>
         <li><label><input type="checkbox" data-k="60"><span class="txt">Feuchttücher, Wickelunterlage, Windelbeutel</span></label></li>
-        <li><label><input type="checkbox" data-k="61"><span class="txt">2 Wechselbodys, 1 Wechsel-Strampler</span></label></li>
         <li><label><input type="checkbox" data-k="62"><span class="txt">Ersatz-T-Shirt für die Person mit Baby auf dem Schoß</span></label></li>
-        <li><label><input type="checkbox" data-k="63"><span class="txt">Milch oder Fläschchen-Set für die Reise</span></label></li>
         <li><label><input type="checkbox" data-k="64"><span class="txt">Spucktücher</span></label></li>
         <li><label><input type="checkbox" data-k="65"><span class="txt">2 Schnuller</span></label></li>
         <li><label><input type="checkbox" data-k="66"><span class="txt">Leichte Decke oder Mulltuch</span></label></li>
